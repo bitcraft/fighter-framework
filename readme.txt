@@ -10,9 +10,6 @@ Main features of FF are:
 	Animation system that uses folders and text files for organization
 	Animation frames can attack, block and be damaged with hitboxes
 	Hit confirms
-	Low use of system resources
-	Simple API for fighters - see fighter.py
-	Simple graphics system that works like pygame sprites
 	Simple menus
 	Simple state management
 	Customizable match types (although only one is written here)

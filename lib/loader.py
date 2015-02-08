@@ -155,12 +155,9 @@ def read_animation_def(filename, name, frame_klass=AnimationFrame):
         if section.lower() == "animation":
             # loop entire animation when held
             animation.hold_loop = handle_bool(d, 'hold loop')
-            print animation, animation.hold_loop
-
 
             # play while held [stop when let go]
             animation.hold_play = handle_bool(d, 'hold play')
-            print animation, animation.hold_play
 
     return animation
 
@@ -394,9 +391,6 @@ class HitConfirm(SimpleAvatar):
         super(HitConfirm, self).__init__()
         self.add_animation(self.animation)
         self.callback = (self.really_stop, [])
-
-    def __del__(self):
-        print "dying hc", id(self)
 
     # causes the rendere to remove us from updates
     def really_stop(self):

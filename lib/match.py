@@ -48,7 +48,7 @@ def create_match(driver, f1_human=True, f2_human=True):
 def setup_match(match, f1_human, f2_human, reset=True):
     import loader as fighter_loader
     from ikguy import IK_Guy
-    from karateman import KarateMan
+    # from karateman import KarateMan
     from ai import AIBlocker, AIFighter
     from match import Match
 

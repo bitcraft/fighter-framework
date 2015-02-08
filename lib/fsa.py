@@ -99,11 +99,9 @@ class FSA(object):
 
     def lock(self):
         self.locked = True
-        print self, "lock"
 
     def unlock(self):
         self.locked = False
-        print self, "unlock"
 
     def check_hold(self, state):
         """ avatar wants to change the animation (usually just the frame,
@@ -126,7 +124,6 @@ class FSA(object):
             return False
         else:
             for cmd, a in self.holds.items():
-                print "check:", self.hold, cmd, a, anim, self.hold & cmd
                 if ((self.hold & cmd) == cmd) and (a == anim):
                     debug("DENY state change req. %s %s\n" % (state, self.hold))
                     return True
@@ -219,9 +216,6 @@ class FSA(object):
         return False
 
     def process(self, cmd, pressed):
-
-        print "keys:", cmd, self.hold, pressed
-
         if pressed:
             now = self.time
 
@@ -229,7 +223,6 @@ class FSA(object):
             t = []
             state = None
             for bh in self.button_history:
-                print "hist:", now, bh[0][1], bh[2]
                 if (bh[2] + bh[0][1] >= now) and (cmd == bh[0][bh[1] + 1]):
                     if len(bh[0]) - 1 == bh[1] + 1:
                         return (bh[0][0], 0)
@@ -240,7 +233,6 @@ class FSA(object):
 
             # check for new combos
             for bc in self.button_combos:
-                print "combo:", cmd, bc, self.button_combos
                 if bc[2] == cmd:
                     i = [bh for bh in self.button_history if bh[0] == bc]
                     if i == []:
@@ -276,8 +268,6 @@ class FSA(object):
 
                 # still holding a key
                 if self.hold != 0:
-                    print "holding..."
-                    print self.hold, state
                     t = self.get_transition(self.hold, state)
                     if t != False:
                         debug("hold: %s\n" % self.hold)

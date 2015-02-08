@@ -52,9 +52,6 @@ class TextBanner(StaticAvatar):
             else:
                 self._font = font
 
-    def __del__(self):
-        print "dying TextBanner"
-
     # @property
     def get_text(self):
         return self._text

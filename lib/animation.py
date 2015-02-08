@@ -51,9 +51,6 @@ class AnimationFrame(object):
 
         self.sound = sound.dummy  # sound played regardless of hit or miss
 
-    def __del__(self):
-        print "dying frame", id(self)
-
     def cleanup(self):
         self.__dict__ = {}
 
@@ -269,9 +266,6 @@ class Animation(object):
         self.direction = 0  # this is the value in radians which direction this animation faces
         # this value is used by the avatar class to properly display
         # animations which are direction dependent.
-
-    def __del__(self):
-        print "dying animation", id(self)
 
     def __len__(self):
         return len(self.frames)

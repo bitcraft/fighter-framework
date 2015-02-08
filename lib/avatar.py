@@ -101,9 +101,6 @@ class StaticAvatar(DrawableObject, PyGameDirtySpriteMixIn):
         self.facing = LEFT
         self.time = 0
 
-    def __del__(self):
-        print "dying avatar", id(self)
-
     def cleanup(self):
         self.current_frame.cleanup()
         self.__dict__ = {}
@@ -326,7 +323,6 @@ class Avatar(SimpleAvatar):
             pass
 
         if self.default == None:
-            print "No default animation set!", self
             self.current_animation = None
             self.current_frame_no = 0
             self.current_frame = None
@@ -379,7 +375,6 @@ class Avatar(SimpleAvatar):
         self.timer.alarm = self.current_frame.ttl
 
     def play(self, name=None, start_frame=0, callback=None, arg=[]):
-        print self, name
         # reset some state stuff
         self.looped = 0
         self.dirty = 1
@@ -488,7 +483,6 @@ class FighterAvatar(Avatar):
             # check the fsa for held buttons
             # the fsa can veto the advance if the player is holding down a key
             if self.fsa.check_hold(self.state) == True:
-                print "hold", self.state
                 self.previously_held = True
                 if current_frame.hold == True:
                     # continue updates, but don't redraw us
@@ -506,7 +500,6 @@ class FighterAvatar(Avatar):
                     return
 
                 if self.previously_held == True:
-                    print "unhold."
                     # we are not holding the key down [anymore]. unset loop override
                     self.force_loop(False)
                     self.previously_held = False
@@ -543,8 +536,6 @@ class FighterAvatar(Avatar):
 
     # an attack we made hit something else
     def attack_landed(self, attack):
-        print "hit!!!"
-
         self.current_frame.sound_hit.stop()
         self.current_frame.sound_hit.play()
 
@@ -649,8 +640,6 @@ class FighterAvatar(Avatar):
 
         # the animation has reached the end
         if self.current_frame_no >= len(self.current_animation):
-            print "loop?"
-
             # handle the loop override...why?  i don't remember...
             if self.loop_override == True:
                 self.set_frame(self.current_animation.loop_frame)
@@ -662,16 +651,13 @@ class FighterAvatar(Avatar):
             # loop, but count the loops
             elif self.current_animation.looping > 0:
                 if self.looped > self.current_animation.looping:
-                    print "no. 2"
                     self.stop()
                 else:
-                    print "loop."
                     self.set_frame(self.current_animation.loop_frame)
                     self.looped += 1
 
             # loop forever, don't count the loops
             else:
-                print "loop."
                 self.set_frame(self.current_animation.loop_frame)
         else:
             # just set the next frame

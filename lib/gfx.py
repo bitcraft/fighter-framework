@@ -106,7 +106,6 @@ def get_image_from_cache(fullpath=None, image=None):
     if image != None:
         for cached_image in image_cache:
             if cached_image == image:
-                print "from cache"
                 return cached_image
 
     return None
